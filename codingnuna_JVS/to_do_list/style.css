@@ -1,0 +1,50 @@
+html,body{
+    height: 100%;
+    margin: 0px;
+    background-image: url("./img/abstract-horizontal-grid-lines-graph-style-graphic-design_1017-39918.jpg");
+    /* background-repeat: no-repeat;
+    background-size: cover; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.container{
+    background-color: #ccc;
+    height: 90vh;
+    /* %와 vh는 부모가 어떤 기준을 가지느냐에 따라 갈린다. */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    
+}
+.task-tabs{
+    display: flex;
+    border: 2px solid rgb(176, 176, 176);
+    position: relative;
+    /* under-line의 부모 */
+}
+.task-tabs div{
+    padding: 1em;
+}
+/* .task-area{
+    border: 2px solid rgb(176, 176, 176);
+    padding: 1em;
+} */
+#under-line{
+    height: 4px;
+    background-color: pink;
+    position: absolute;
+    width: 60px;
+    left: 0px;
+    top: 55px;
+    padding: 0px;
+    /* position에 absolute 줬으면 그 부모에 relative 주기! */
+}
+.list{
+    border: 2px solid rgb(176, 176, 176);
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    /* margin-top: 1em; */
+}
+.task-done{
+    text-decoration: line-through;
+}

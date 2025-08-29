@@ -1,0 +1,34 @@
+html,body{
+    height: 100%;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+.container{
+    height: 90vh;
+    border: 1px solid red;
+}
+#task-tabs{
+    display: flex;
+    border: 1px solid #ccc;
+    margin-bottom: 2px;
+}
+#task-tabs div{
+    padding: 1em;
+}
+#list{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 1em;
+}
+
+.doneItems{
+    /* background-color: #ccc; */
+    text-decoration: line-through;
+}
+.done{
+    background-color: #ccc;
+}
