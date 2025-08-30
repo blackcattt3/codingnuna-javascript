@@ -4,6 +4,8 @@ let taskList = [];
 let checkBtn = document.querySelector("#check-btn");
 let deleteBtn = document.querySelector("#delete-btn");
 let tabs = document.querySelectorAll(".task-tabs div");
+let menus = document.querySelectorAll(".menu");
+let underLine = document.querySelector(".under-line");
 let mode = 'all';
 let filterList = [];
 
@@ -20,6 +22,14 @@ taskInput.addEventListener("keydown", function(event){
         addTask();
     }
 })
+
+menus.forEach((menu)=>menu.addEventListener("click", (e)=>menuIndicator(e)));
+function menuIndicator(e){
+    underLine.style.left = e.currentTarget.offsetLeft+"px";
+    underLine.style.width = e.currentTarget.offsetWidth+"px";
+    underLine.style.top = e.currentTarget.offsetTop+e.currentTarget.offsetHeight+"px";
+}
+
 
 
 for(let i=1;i<tabs.length;i++){

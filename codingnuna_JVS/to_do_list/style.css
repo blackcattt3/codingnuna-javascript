@@ -21,21 +21,24 @@ html,body{
     position: relative;
     /* under-line의 부모 */
 }
-.task-tabs div{
+.menu{
     padding: 1em;
+    /* border: 1px solid red; */
 }
 /* .task-area{
     border: 2px solid rgb(176, 176, 176);
     padding: 1em;
 } */
-#under-line{
+.under-line{
     height: 4px;
-    background-color: pink;
+    background-color: black;
     position: absolute;
-    width: 60px;
+    transition: 0.5s;
+    margin-top: -1px;
+    /* width: 60px;
     left: 0px;
     top: 55px;
-    padding: 0px;
+    padding: 0px; */
     /* position에 absolute 줬으면 그 부모에 relative 주기! */
 }
 .list{
