@@ -1,0 +1,33 @@
+nav a{
+    text-decoration: none;
+    color: black;
+    margin: 1em;
+}
+nav:first-child{
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid red; */
+    position: relative;
+}
+nav:nth-child(2){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+#horizontal-underline{
+    position:absolute;
+    width: 0;
+    background-color: pink;
+    top: 0;
+    left: 0;
+    height: 4px;
+    /* 얼마나 부드럽게 움직이냐! */
+    transition: 0.5s;
+}
+#vertical-underline{
+    position: absolute;
+    height: 4px;
+    background-color: skyblue;
+    transition: 0.5s;
+}
