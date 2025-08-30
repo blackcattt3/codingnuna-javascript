@@ -6,13 +6,21 @@ let deleteBtn = document.querySelector("#delete-btn");
 let tabs = document.querySelectorAll(".task-tabs div");
 let mode = 'all';
 let filterList = [];
+
 // let notDoneList = [];
 // let doneList = [];
 addBtn.addEventListener("click", addTask);
 // checkBtn.addEventListener("click", function(){
 //     isComplete = true;
 // })
-console.log(tabs);
+// console.log(tabs);
+taskInput.addEventListener("keydown", function(event){
+    if(event.key === 'Enter'){
+        event.preventDefault();
+        addTask();
+    }
+})
+
 
 for(let i=1;i<tabs.length;i++){
     tabs[i].addEventListener("click", function(event){filter(event)});
@@ -94,10 +102,13 @@ function toggleComplete(id){
             // console.log(taskList[i].taskContent);
             taskList[i].isComplete = !taskList[i].isComplete;
             // 왔다갔다 가능!!
+            // render();
+
             break;
         }
     }
-    render();
+    filter();
+    // render();
     // console.log(taskList);
 }
 
@@ -112,7 +123,7 @@ function deleteItem(id){
             break;
         }
     }
-    render();
+    filter();
 }
 
 // function moveToDone(){
@@ -134,9 +145,13 @@ function deleteItem(id){
 // ctrl + d
 // target !! this는 안되네
 function filter(event){
-    console.log(event.target.id);
-    mode = event.target.id      // let 없이 전역변수로 선언!
+    // console.log(event.target.id);
+    // mode = event.target.id      // let 없이 전역변수로 선언!
     filterList = [];
+    if (event && event.target && event.target.id) {
+        mode = event.target.id;
+    }
+
     if(mode === "all"){
         // 전체 목록 보여주기
     } else if(mode === "not-done"){
@@ -145,6 +160,7 @@ function filter(event){
         for(let i=0;i<taskList.length;i++){
             if(taskList[i].isComplete === false){
                 filterList.push(taskList[i]);
+                // render();
             }
         }
         console.log(filterList);
@@ -153,6 +169,7 @@ function filter(event){
         for(let i=0;i<taskList.length;i++){
             if(taskList[i].isComplete === true){
                 filterList.push(taskList[i]);
+                // render();
             }
         }
         console.log(filterList);
@@ -160,3 +177,6 @@ function filter(event){
     render();
     // console.log(filterList);
 }
+
+
+// Done에서 체크표시 해제했을때 바로 Not Done으로 안돌아감.
