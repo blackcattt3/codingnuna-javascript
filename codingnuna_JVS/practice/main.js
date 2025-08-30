@@ -37,7 +37,7 @@ function showTask(){
                     <button onclick="toggleSwitch('${itemList[i].id}')" type="button" id="check-btn">
                         <i class="fa-solid fa-arrow-rotate-left"></i>
                     </button>
-                    <button type="button" id="delete-btn">
+                    <button onclick="deleteItem('${itemList[i].id}')" type="button" id="delete-btn">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>
@@ -49,7 +49,7 @@ function showTask(){
                     <button onclick="toggleSwitch('${itemList[i].id}')" type="button" id="check-btn">
                         <i class="fa-solid fa-check"></i>
                     </button>
-                    <button onclick="deleteItem('${itemList[i].id}')"type="button" id="delete-btn">
+                    <button onclick="deleteItem('${itemList[i].id}')" type="button" id="delete-btn">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>
@@ -71,7 +71,9 @@ function toggleSwitch(id){
             break;
         }
     }
+    console.log(id);
     showTask();
+    // deleteItem(id)
 }
 
 // 작은 따옴표
@@ -87,8 +89,10 @@ function deleteItem(id){
         }
         // console.log(itemList);
     }
+    // console.log(itemList);
     showTask();
 }
 
 // 이제 제발 되라..
 // 테스트
+// isDone이 true 일때 deleteItem이 안먹힘.
