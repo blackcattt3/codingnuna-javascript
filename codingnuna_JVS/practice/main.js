@@ -3,6 +3,7 @@ let item = document.querySelector("#item")
 let checkBtn = document.querySelector("#check-btn");
 let deleteBtn = document.querySelector("#delete-btn");
 let menus = document.querySelectorAll(".menu");
+let underLine = document.querySelector(".under-line");
 let mode = "all";
 let filterList = [];
 // let taskList = document.querySelector("#task-list");
@@ -15,6 +16,7 @@ addBtn.addEventListener("click", addTask);
 
 // 필터 함수
 menus.forEach((event)=>event.addEventListener("click", (e)=>filter(e)));
+menus.forEach((event)=>event.addEventListener("click", (e)=>menuIndicator(e)));
 
 function filter(e){
     filterList = [];
@@ -41,6 +43,11 @@ function filter(e){
     showTask();
 }
 
+function menuIndicator(e){
+    underLine.style.left = e.currentTarget.offsetLeft+"px";
+    underLine.style.width = e.currentTarget.offsetWidth+"px";
+    underLine.style.top = e.currentTarget.offsetTop + e.currentTarget.offsetHeight+"px";
+}
 
 function addTask(){
     if(item.value.trim() === ""){

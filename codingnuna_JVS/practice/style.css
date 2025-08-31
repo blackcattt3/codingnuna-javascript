@@ -41,7 +41,8 @@ html,body{
 }
 .under-line{
     height: 4px;
-    width: 10px;
     background-color: pink;
     position: absolute;
+    /* margin-top: 5px; */
+    transition: 0.5s;
 }
