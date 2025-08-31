@@ -31,7 +31,6 @@ function menuIndicator(e){
 }
 
 
-
 for(let i=1;i<tabs.length;i++){
     tabs[i].addEventListener("click", function(event){filter(event)});
 }

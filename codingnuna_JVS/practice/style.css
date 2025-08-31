@@ -14,10 +14,11 @@ html,body{
     display: flex;
     border: 1px solid #ccc;
     margin-bottom: 2px;
+    position: relative;
 }
-#task-tabs div{
+/* #task-tabs div{
     padding: 1em;
-}
+} */
 #list{
     display: flex;
     justify-content: space-between;
@@ -31,4 +32,16 @@ html,body{
 }
 .done{
     background-color: #ccc;
+}
+.menu{
+    margin: 1em;
+}
+.menu:hover{
+    cursor:pointer;
+}
+.under-line{
+    height: 4px;
+    width: 10px;
+    background-color: pink;
+    position: absolute;
 }
