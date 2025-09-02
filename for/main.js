@@ -66,3 +66,70 @@
 //     return item.startsWith("a")
 // })
 // console.log(data); 
+
+
+let names = [
+    "Steven Paul Jobs",
+    "Bill Gates",
+    "Mark Elliot Zuckerberg",
+    "Elon Musk",
+    "Jeff Bezos",
+    "Warren Edward Buffett",
+    "Larry Page",
+    "Larry Ellison",
+    "Tim Cook",
+    "Lloyd Blankfein",
+];
+
+// map
+// 1
+// let data = names.map((item)=>{
+//     return item.toUpperCase()
+// })
+// console.log(data);
+
+// 2
+// let data = names.map((item)=>{
+//     return item.split(' ')[0]
+// })
+// console.log(data)
+
+// 3
+// let data = names.map((item)=>{
+//     let items = item.split(' ');
+//     // return items
+//     // let result = "";
+//     // 매 콜백요소마다 독립적으로 실행되어 새 배열에 계속 누적해서 모아준다.
+//     let result = "";
+//     items.forEach((init)=>{
+//         result += init[0]});
+//     return result
+// })
+// console.log(data);
+
+
+
+// filter
+// 1
+// let data = names.filter((item)=>{
+//     return item.includes("a")})
+// console.log(data);
+// let includeA = names.filter((item)=>item.includes('a'))
+// console.log(includeA)
+
+// 2
+let data = names.filter((item)=>{
+    let items = item.split();
+    let result = '';
+    items.forEach((a)=>{
+        if(a==a+1){
+            result+= items;
+        }
+    })
+    return result
+})
+// let data = names.map((item)=>{
+//     let items = item.split("");
+//     return items;
+// })
+console.log(data);
