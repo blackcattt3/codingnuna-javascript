@@ -118,18 +118,64 @@ let names = [
 // console.log(includeA)
 
 // 2
-let data = names.filter((item)=>{
-    let items = item.split();
-    let result = '';
-    items.forEach((a)=>{
-        if(a==a+1){
-            result+= items;
-        }
-    })
-    return result
-})
 // let data = names.map((item)=>{
 //     let items = item.split("");
 //     return items;
 // })
+// console.log(data);
+// let data = names.filter((item)=>{
+//     let items = item.split('');
+//     return items.some((letter,index)=>letter==items[index+1])
+// })
+// console.log(data);
+
+
+// some
+// 1
+// let data = names.some((item)=>item.length>=20)
+// console.log(data);
+
+// 2
+// let data = names.some((item)=>{
+//     let items = item.split(' ');
+//     items.pop();
+//     return items.some((eachName)=>eachName.toLocaleLowerCase().includes("p"))
+
+// })
+// console.log(data)
+
+
+// every
+// 1
+// let data = names.every((item)=>{
+//     let items = item.split('');
+//     return items.length >=20
+// })
+// console.log(data)
+
+// 2
+// let data = names.every((item)=>{
+//     let items = item.split('');
+//     return items.includes("a");
+// })
+// console.log(data)
+
+
+// console.log(names.find((item)=>item.length>=20))
+// let data = names.find((item)=>{
+//     let items = item.split(' ');
+//     return items.length >= 3;
+// })
+// console.log(data);
+
+
+// let data = names.findIndex((item)=>item.length>=20)
+// console.log(data);
+
+let data = names.findIndex((item)=>{
+    let items = item.split(' ');
+    return items.length == 3
+})
 console.log(data);
+
+// console.log(names.findIndex(item=>item.split(' ').length>=3))
