@@ -1,0 +1,43 @@
+
+.head-line{
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+.head-line svg{
+    width: 430px;
+}
+.menus{
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* 메뉴들이 길어도 옆으로 빠져나오지 않게 해준다! */
+    border-top : 1px solid #e2e2e2;
+    border-bottom: 4px double black;
+}
+.menus button{
+    border: none;
+    background: none;
+    margin: 5px;
+}
+.menus button:hover{
+    background-color: beige;
+}
+.news-img-size{
+    max-width: 100%;     /* 부모 기준으로 100%. 부모크기를 초과하지 않는다! */
+    max-height: 250px;
+}
+.news{
+    border-bottom: 2px solid #e2e2e2;
+}
+.searching-tab{
+    display: flex;
+    align-items: center;
+}
+.search-icon:hover{
+    cursor: pointer;
+}
+.search-toggle {
+    display: none;
+}

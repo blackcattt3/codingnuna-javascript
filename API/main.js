@@ -1,6 +1,24 @@
-const API_KEY = '12dddfa0489b427c9b4d886527577d89'
+const API_KEY = `12dddfa0489b427c9b4d886527577d89`
+// let news = data.articles
+let searchIcon = document.querySelector(".search-icon");
+let searchToggle = document.querySelector(".search-toggle");
+
+
+searchIcon.addEventListener("click", renderToggle);
+
+function renderToggle(){
+    if (searchToggle.style.display === 'none' || searchToggle.style.display === '') {
+        searchToggle.style.display = 'flex'; // Or 'flex', 'grid', etc., depending on the element's original display
+      } else {
+        searchToggle.style.display = 'none';
+      }
+}
+
+
+
+
 // 뉴스 가지고 오는 함수
-const getLatestNews = () =>{
+const getLatestNews = async () =>{
     const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`)
     // 인스턴스를 쿼리만 떼온다던가 하는 작업들을 수작업으로 하지않고 미리 만들어놓은 함수를 사용한다.
     // URL 인스턴스 -> 다양한 작업에 필요한 함수와 변수들을 제공한다.
@@ -8,9 +26,19 @@ const getLatestNews = () =>{
     // console.log("uuu", url);
 
     // fetch : URL 호출. 요청.
-    const response = fetch(url);
-}
+    const response = await fetch(url);
+    // 우리가 보고싶은 데이터는 body안에 있고 이것을 json 데이터로 뽑아야한다.
+    const data = await response.json()
+    // console.log("rrr", response);
+    news = data.articles
+    console.log("ddd", news);
+};
 getLatestNews();
+
+
+
+
+
 
 // 자바스크립트는 동기적 프로그래밍. 코드를 하나하나 실행한다.
 // 메모리 힙 : 내가 저장하고 싶은 정보들을 두서없이 그냥 저장.
@@ -27,3 +55,18 @@ getLatestNews();
 // (Ajax, fetch, setTimeout, EventHandling)등의 시간이 걸리는 것들을 대신 처리해준다.
 // 위에꺼가 해결되어야 밑에것도 할 수 있는 경우 강제적으로 async와 await(이걸 만나는 순간 일시정지됨)을 써서
 // task queue로 넘어가게 된다. 기다리다가 그 후에 콜스택이 비면 다시 콜스택으로 가져와서 남은 코드 실행.
+
+
+
+
+
+// let response = await fetch(url)
+// let daa = await response.json()
+
+
+// const callAPI = async() =>{
+//     let url = new URL(`url주소`)
+//     let header = new Headers({헤더내용}) // 이건 필요한 경우만
+//     let response = await fetch(url,{headers:header})
+//     let data = await response.json()
+// }
