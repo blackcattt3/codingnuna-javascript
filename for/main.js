@@ -172,10 +172,10 @@ let names = [
 // let data = names.findIndex((item)=>item.length>=20)
 // console.log(data);
 
-let data = names.findIndex((item)=>{
-    let items = item.split(' ');
-    return items.length == 3
-})
-console.log(data);
+// let data = names.findIndex((item)=>{
+//     let items = item.split(' ');
+//     return items.length == 3
+// })
+// console.log(data);
 
 // console.log(names.findIndex(item=>item.split(' ').length>=3))
