@@ -2,17 +2,27 @@ const API_KEY = `12dddfa0489b427c9b4d886527577d89`
 // let news = data.articles
 let searchIcon = document.querySelector(".search-icon");
 let searchToggle = document.querySelector(".search-toggle");
+let hamburger = document.querySelector(".hamburger");
+let mobileMenu = document.querySelector(".mobile-menu");
+let menus = document.querySelector(".menus");
 
 
-searchIcon.addEventListener("click", renderToggle);
+// searchIcon.addEventListener("click", renderToggle);
+hamburger.addEventListener("click", ()=>{
+    menus.classList.toggle("active");
+});
 
-function renderToggle(){
-    if (searchToggle.style.display === 'none' || searchToggle.style.display === '') {
-        searchToggle.style.display = 'flex'; // Or 'flex', 'grid', etc., depending on the element's original display
-      } else {
-        searchToggle.style.display = 'none';
-      }
-}
+// function renderToggle(){
+//     if (searchToggle.style.display === 'none' || searchToggle.style.display === '') {
+//         searchToggle.style.display = 'flex'; // Or 'flex', 'grid', etc., depending on the element's original display
+//       } else {
+//         searchToggle.style.display = 'none';
+//       }
+// }
+
+searchIcon.addEventListener("click", ()=>{
+    searchToggle.classList.toggle("active");
+})
 
 
 

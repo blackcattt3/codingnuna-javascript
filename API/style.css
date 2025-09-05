@@ -41,3 +41,56 @@
 .search-toggle {
     display: none;
 }
+.search-toggle.active{
+    display: flex;
+}
+.hamburger{
+    display: none;
+}
+/* .mobile-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 200px;
+    background: white;
+    border: 1px solid #ddd;
+    flex-direction: column;
+} */
+.mobile-menu.active {
+    display: flex; /* 햄버거 누르면 보임 */
+}
+
+  
+
+
+/* 미디어쿼리 */
+@media (max-width: 576px){
+    .hamburger{
+        display:flex;
+        margin-right: 5px;
+    }
+    .hamburger:hover{
+        cursor:pointer;
+    }
+    .menus{
+        position: fixed;       /* 화면에 고정 */
+        top: 0;
+        left: -250px;          /* 처음엔 안 보이게 */
+        width: 250px;
+        height: 100vh;         /* 세로 전체 */
+        background: white;
+        border-right: 1px solid #ddd;
+        transition: left 0.3s ease;  /* 슬라이드 애니메이션 */
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+        z-index: 999;       /* 겹침 정도 */
+        margin-top: 30px;
+    }
+    .menus.active {
+        left: 0; /* 왼쪽에서 쑥 나옴 */
+    }
+    
+}
+
