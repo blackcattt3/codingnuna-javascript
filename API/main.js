@@ -1,6 +1,6 @@
 const API_KEY = `12dddfa0489b427c9b4d886527577d89`
-urlAddress =`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
-url = new URL(urlAddress);
+// urlAddress =`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
+// url = new URL(urlAddress);
 // let news = data.articles
 let searchIcon = document.querySelector(".search-icon");
 let searchToggle = document.querySelector(".search-toggle");
@@ -11,6 +11,26 @@ let xBtn = document.querySelector(".x-btn");
 let newsBoard = document.querySelector(".news-board");
 let container = document.querySelector(".container");
 let categoryBtn = document.querySelectorAll(".category-btn");
+let input = document.querySelector(".search-toggle input");
+let goBtn = document.querySelector(".search-toggle button");
+
+goBtn.addEventListener("click", (event)=>getNewsByInput(event));
+    const getNewsByInput = async ()=>{
+    // console.log(typeof(input.value));
+    const text = input.value;
+    const url = new URL(`https://newsapi.org/v2/everything?q=${text}&apiKey=${API_KEY}`)
+    const response = await fetch(url);
+    const data = await response.json();
+    // console.log("hi", data);
+    newsList = data.articles;
+    render();
+}
+input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault(); // 폼 없을 때 필요
+        getNewsByInput();
+    }
+});
 
 
 // searchIcon.addEventListener("click", renderToggle);
@@ -54,10 +74,13 @@ const getNewsByCategory = async(event)=>{
     render();
 }
 
+
+
+
 // 뉴스 가지고 오는 함수
 const getLatestNews = async () =>{
     newsList = [];
-    // url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`)
+    url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`)
     // 인스턴스를 쿼리만 떼온다던가 하는 작업들을 수작업으로 하지않고 미리 만들어놓은 함수를 사용한다.
     // URL 인스턴스 -> 다양한 작업에 필요한 함수와 변수들을 제공한다.
     // URL 인스턴스를 새로 생성한다. (http://~ 를 통해서 생성!)
