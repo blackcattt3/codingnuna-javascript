@@ -1,4 +1,6 @@
 const API_KEY = `12dddfa0489b427c9b4d886527577d89`
+urlAddress =`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
+url = new URL(urlAddress);
 // let news = data.articles
 let searchIcon = document.querySelector(".search-icon");
 let searchToggle = document.querySelector(".search-toggle");
@@ -8,6 +10,7 @@ let menus = document.querySelector(".menus");
 let xBtn = document.querySelector(".x-btn");
 let newsBoard = document.querySelector(".news-board");
 let container = document.querySelector(".container");
+let categoryBtn = document.querySelectorAll(".category-btn");
 
 
 // searchIcon.addEventListener("click", renderToggle);
@@ -29,13 +32,32 @@ searchIcon.addEventListener("click", ()=>{
 xBtn.addEventListener("click", ()=>{
     menus.classList.toggle("active");
 })
+// categoryBtn.forEach((category)=>category.addEventListener("click", ()=>{
+//     console.log(category.textContent);
+//     urlAddress =`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
+//     urlAddress += `&category=${category.textContent}`
+//     url = new URL(urlAddress);
+//     // console.log(urlAddress);
+//     getLatestNews();
+// }))
+categoryBtn.forEach((category)=>category.addEventListener("click", (event)=>getNewsByCategory(event)));
 
-
+const getNewsByCategory = async(event)=>{
+    // console.log(event.target.textContent)
+    const category = event.target.textContent;
+    const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`)
+    // console.log(url)
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("Ddd", data);
+    newsList = data.articles;
+    render();
+}
 
 // 뉴스 가지고 오는 함수
 const getLatestNews = async () =>{
     newsList = [];
-    const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`)
+    // url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`)
     // 인스턴스를 쿼리만 떼온다던가 하는 작업들을 수작업으로 하지않고 미리 만들어놓은 함수를 사용한다.
     // URL 인스턴스 -> 다양한 작업에 필요한 함수와 변수들을 제공한다.
     // URL 인스턴스를 새로 생성한다. (http://~ 를 통해서 생성!)
@@ -71,22 +93,67 @@ getLatestNews();
 
 const render = ()=>{
     const newsHTML = newsList.map((news)=>{
+        const abstract = textAbstract(news.description, 200);
+        const image = showImage (news.urlToImage);
+        const source = showSource(news.source);
+        const pastTime = moment(news.publishedAt).fromNow();
+        const category = ['business', 'entertainment','general', 'health', 'science', 'sports', 'technology']
+
         return `<div class="row news">
                 <div class="col-lg-4">
-                    <img class="news-img-size" src="${news.urlToImage}">
+                    <img class="news-img-size" src="${image}">
                 </div>
                 <div class="col-lg-8">
                     <h2>${news.title}</h2>
-                    <p>${news.description}</p>
-                    <div>${news.source.name} * ${news.publishedAt.split('T')[0]}</div>
+                    <p>${abstract}</p>
+                    <div>${source.name} * ${pastTime}</div>
                 </div>
             </div>`;
     }).join("");
-
-
+    // 배열형태이므로 ,을 지워야 한다! 문자열 형태로 바꿔줘야한다.
     newsBoard.innerHTML = newsHTML;
-    console.log(newsHTML);
+    // console.log(moment().format('DD/MM/YY'));
+
 }
+
+const textAbstract=(text, length)=>{
+    if(text == null){
+        return "내용없음";
+    }
+    if(text.length <= length){
+        return text;   // 이미 짧으면 그대로
+    }
+    let shortened = text.substring(0, length); // 원하는 길이만큼 자르기
+    let last = shortened.lastIndexOf(" ");     // 마지막 공백에서 끊기
+    if(last > 0){
+        shortened = shortened.substring(0, last);
+    }
+    return shortened + "...";
+}
+
+const showImage = (img)=>{
+    if(img == null){
+        return "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/800px-Image_not_available.png"
+    } else{
+        return img;
+    }
+}
+
+const showSource = (source)=>{
+    if(source == null){
+        return "no source";
+    } else{
+        return source;
+    }
+}
+
+
+
+
+
+
+
+
 
 
 
