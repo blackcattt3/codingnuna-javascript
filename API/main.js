@@ -5,6 +5,9 @@ let searchToggle = document.querySelector(".search-toggle");
 let hamburger = document.querySelector(".hamburger");
 let mobileMenu = document.querySelector(".mobile-menu");
 let menus = document.querySelector(".menus");
+let xBtn = document.querySelector(".x-btn");
+let newsBoard = document.querySelector(".news-board");
+let container = document.querySelector(".container");
 
 
 // searchIcon.addEventListener("click", renderToggle);
@@ -19,16 +22,19 @@ hamburger.addEventListener("click", ()=>{
 //         searchToggle.style.display = 'none';
 //       }
 // }
-
 searchIcon.addEventListener("click", ()=>{
     searchToggle.classList.toggle("active");
 })
 
+xBtn.addEventListener("click", ()=>{
+    menus.classList.toggle("active");
+})
 
 
 
 // 뉴스 가지고 오는 함수
 const getLatestNews = async () =>{
+    newsList = [];
     const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`)
     // 인스턴스를 쿼리만 떼온다던가 하는 작업들을 수작업으로 하지않고 미리 만들어놓은 함수를 사용한다.
     // URL 인스턴스 -> 다양한 작업에 필요한 함수와 변수들을 제공한다.
@@ -40,10 +46,47 @@ const getLatestNews = async () =>{
     // 우리가 보고싶은 데이터는 body안에 있고 이것을 json 데이터로 뽑아야한다.
     const data = await response.json()
     // console.log("rrr", response);
-    news = data.articles
-    console.log("ddd", news);
+    newsList = data.articles
+    render()
+    console.log("ddd", newsList);
 };
 getLatestNews();
+
+// const render = ()=>{
+//     let resultHTML = '';
+//     newsList.forEach((articles)=>{
+//         resultHTML += `<div class="row news">
+//                 <div class="col-lg-4">
+//                     <img class="news-img-size" src="${articles.urlToImage || './img/no_image.png'}">
+//                 </div>
+//                 <div class="col-lg-8">
+//                     <h2>${articles.title}</h2>
+//                     <p>${articles.description}</p>
+//                     <div>${articles.author} ${articles.publishedAt.split("T")[0]}</div>
+//                 </div>
+//             </div>`
+//     })
+//     newsBoard.innerHTML = resultHTML;
+// }
+
+const render = ()=>{
+    const newsHTML = newsList.map((news)=>{
+        return `<div class="row news">
+                <div class="col-lg-4">
+                    <img class="news-img-size" src="${news.urlToImage}">
+                </div>
+                <div class="col-lg-8">
+                    <h2>${news.title}</h2>
+                    <p>${news.description}</p>
+                    <div>${news.source.name} * ${news.publishedAt.split('T')[0]}</div>
+                </div>
+            </div>`;
+    }).join("");
+
+
+    newsBoard.innerHTML = newsHTML;
+    console.log(newsHTML);
+}
 
 
 
