@@ -1,7 +1,6 @@
 const API_KEY = `12dddfa0489b427c9b4d886527577d89`
-// urlAddress =`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
-// url = new URL(urlAddress);
-// let news = data.articles
+let url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`)
+// 전역변수로 빼두면 함수마다 상황에 맞게 재정의 된다!
 let searchIcon = document.querySelector(".search-icon");
 let searchToggle = document.querySelector(".search-toggle");
 let hamburger = document.querySelector(".hamburger");
@@ -14,16 +13,22 @@ let categoryBtn = document.querySelectorAll(".category-btn");
 let input = document.querySelector(".search-toggle input");
 let goBtn = document.querySelector(".search-toggle button");
 
-goBtn.addEventListener("click", (event)=>getNewsByInput(event));
-    const getNewsByInput = async ()=>{
-    // console.log(typeof(input.value));
-    const text = input.value;
-    const url = new URL(`https://newsapi.org/v2/everything?q=${text}&apiKey=${API_KEY}`)
+
+const getNews = async ()=>{
     const response = await fetch(url);
     const data = await response.json();
-    // console.log("hi", data);
     newsList = data.articles;
     render();
+}
+
+
+
+goBtn.addEventListener("click", (event)=>getNewsByInput(event));
+const getNewsByInput = async ()=>{
+    // console.log(typeof(input.value));
+    const text = input.value;
+    url = new URL(`https://newsapi.org/v2/everything?q=${text}&apiKey=${API_KEY}`)
+    getNews();
 }
 input.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
@@ -65,13 +70,9 @@ categoryBtn.forEach((category)=>category.addEventListener("click", (event)=>getN
 const getNewsByCategory = async(event)=>{
     // console.log(event.target.textContent)
     const category = event.target.textContent;
-    const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`)
+    url = new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`)
     // console.log(url)
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log("Ddd", data);
-    newsList = data.articles;
-    render();
+    getNews();
 }
 
 
@@ -87,13 +88,14 @@ const getLatestNews = async () =>{
     // console.log("uuu", url);
 
     // fetch : URL 호출. 요청.
-    const response = await fetch(url);
+    // const response = await fetch(url);
     // 우리가 보고싶은 데이터는 body안에 있고 이것을 json 데이터로 뽑아야한다.
-    const data = await response.json()
+    // const data = await response.json()
     // console.log("rrr", response);
-    newsList = data.articles
-    render()
-    console.log("ddd", newsList);
+    // newsList = data.articles
+    // render()
+    // console.log("ddd", newsList);
+    getNews();
 };
 getLatestNews();
 
@@ -169,14 +171,6 @@ const showSource = (source)=>{
         return source;
     }
 }
-
-
-
-
-
-
-
-
 
 
 
