@@ -1,0 +1,17 @@
+@keyframes bounce{
+    0% { transform: scale3d(1,1,1); }
+    30% { transform: scale3d(1.25,0.75,1); }
+    40% { transform: scale3d(0.75,1.25,1); }
+    50% { transform: scale3d(1.15,0.85,1); }
+    65% { transform: scale3d(0.95,1.05,1); }
+    75% { transform: scale3d(1.05,0.95,1); } 
+    00% { transform: scale3d(1,1,1); }
+}
+
+button:hover{
+    animation: bounce 0.3s ease;
+}
+
+/* @keyframes
+CSS에서 애니메이션의 단계별 동작을 정의하는 규칙
+“이 애니메이션은 0%일 땐 이렇게, 50%일 땐 저렇게, 100%일 땐 이렇게 바뀌어라” 하고 시간에 따른 변화를 스크립트처럼 기록하는 거야. */
