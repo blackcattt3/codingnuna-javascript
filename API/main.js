@@ -12,10 +12,17 @@ let container = document.querySelector(".container");
 let categoryBtn = document.querySelectorAll(".category-btn");
 let input = document.querySelector(".search-toggle input");
 let goBtn = document.querySelector(".search-toggle button");
-
+let totalResult = 0;
+let page = 1;   // 현재 있는 페이지
+const pageSize = 10;   // 한 페이지당 몇개의 정보 담을건지
+const groupSize = 5;  // 그룹당 몇개의 페이지 만들건지
+let pagination = document.querySelector(".pagination");
 
 const getNews = async ()=>{
     try{
+        url.searchParams.set("page", page);     // -> &page=${page}
+        url.searchParams.set("pageSize", pageSize);
+
         const response = await fetch(url);
         const data = await response.json();
 
@@ -24,7 +31,12 @@ const getNews = async ()=>{
                 throw new Error("No result for this search");
             }
             newsList = data.articles;
+            totalResult = data.totalResults;
+            console.log(data);
+            // console.log("totalResult",totalResult)
+            // console.log("articles", data.articles.length);
             render();
+            paginationRender();
         } else{
             throw new Error(data.message)
         }
@@ -114,7 +126,6 @@ const getLatestNews = async () =>{
     // console.log("ddd", newsList);
     getNews();
 };
-getLatestNews();
 
 // const render = ()=>{
 //     let resultHTML = '';
@@ -189,10 +200,52 @@ const showSource = (source)=>{
     }
 }
 
+const paginationRender = ()=>{
+    // totalResult
+    // pageSize
+    // groupSize
+    // page
+    // pageGroup
+    const totalPage = Math.ceil(totalResult / pageSize);
+    const pageGroup = Math.ceil(page/groupSize);
+    let lastPage = pageGroup * groupSize;
+    // 마지막 페이지 그룹이 그룹사이즈보다 작다?! -> lastPage = totalPage
+    if(lastPage > totalPage){
+        lastPage = totalPage;
+    }
+
+    let firstPage = lastPage - (groupSize-1)<=0? 1:lastPage - (groupSize-1) ;
+    // totalpage
+    // <nav aria-label="Page navigation example">
+    //     <ul class="pagination">
+    //         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    //         <li class="page-item"><a class="page-link" href="#">1</a></li>
+    //         <li class="page-item"><a class="page-link" href="#">2</a></li>
+    //         <li class="page-item"><a class="page-link" href="#">3</a></li>
+    //         <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    //     </ul>
+    // </nav>
+    let paginationHTML = ``
+    if(page>1){
+        paginationHTML += `<li class="page-item" onclick="moveToPage(${page-1})"><a class="page-link" href="#"><<</a></li>`
+    }
+    for(let i=firstPage;i<=lastPage;i++){
+        paginationHTML += `<li class="page-item ${i===page?"active":""}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`
+    }
+    if(page<totalPage){
+        paginationHTML += `<li class="page-item" onclick="moveToPage(${page+1})"><a class="page-link" href="#">>></a></li>`
+    }
+    pagination.innerHTML = paginationHTML;
+}
 
 
 
-
+const moveToPage = (pageNum)=>{
+    console.log("page", pageNum);
+    page = pageNum;
+    getNews();
+}
+getLatestNews();
 
 // 자바스크립트는 동기적 프로그래밍. 코드를 하나하나 실행한다.
 // 메모리 힙 : 내가 저장하고 싶은 정보들을 두서없이 그냥 저장.
@@ -241,3 +294,40 @@ const showSource = (source)=>{
 // }
 // 에러가 발생하는 순간 try문은 끝난다. 바로 catch로 넘어간다!
 // 잡고싶은 에러가 있으면 try문 안에 쓰고 이것을 catch에서 잡는다.
+
+
+// 페이지네이션
+// totalResult = 101
+// pageSize = 10
+// page = 3
+
+// groupSize = 5 (한번에 최대 몇개 페이지까지 보여줄거냐!)
+// pageGroup = page(내가 현재 보고있는 페이지) / groupSize (1,2,3,4,5)->1그룹 (6,7,8,9,10)->2그룹
+// ex) 내가 7번째 페이지를 보고있을때 몇번째 페이지 그룹에 속해있냐? -> 7 / 5 = 1.xxx -> 반올림해서 2!!
+// 두번째 페이지그룹에 있다는 것을 알 수 있다.
+
+// 내가 속한 그룹 번호를 알면 그 그룹의 첫번째와 마지막 페이지를 알 수 있다. -> 그룹사이즈 x 페이지그룹 = 5*2 = 10
+// 마지막페이지는 10, 첫번째페이지 : 마지막페이지-(그룹사이즈-1) -> 10-(5-1) = 6
+
+
+// totalResult(전체) -> 주어짐
+// pageSize(한페이지에 몇개의 정보) -> 정해야함
+// page(현재 보고있는 페이지)) -> 정해야함
+// groupSize(한 그룹당 몇개의 페이지 넣을건지 (1,2,3,4,5)->1그룹 (6,7,8,9,10)->2그룹   이때 groupSize=5) -> 정해야함
+
+// 구해야하는것 :
+// totalPage(전체 페이지) = Math.ceil(totalResult / pageSize)
+// pageGroup(몇번째 페이지 그룹에 있는지) = Math.ceil(page / groupSize)
+// 마지막 페이지 = pageGroup * groupSize
+// 첫번째 페이지 = 마지막 페이지 - (groupSize-1)
+
+// totalResult
+// page
+// pagesize
+// groupSize
+// totalPage
+// pageGroup
+
+// 1. totalPage = Math.ceil(totalResult / pageSize)
+// 2. Math.ceil(page/groupSize)
+// 3. pagegroup * groupSize
