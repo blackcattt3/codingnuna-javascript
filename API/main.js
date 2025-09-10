@@ -15,12 +15,29 @@ let goBtn = document.querySelector(".search-toggle button");
 
 
 const getNews = async ()=>{
-    const response = await fetch(url);
-    const data = await response.json();
-    newsList = data.articles;
-    render();
+    try{
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if(response.status === 200){
+            if(data.articles.length === 0){
+                throw new Error("No result for this search");
+            }
+            newsList = data.articles;
+            render();
+        } else{
+            throw new Error(data.message)
+        }
+    } catch(error){
+        // console.log("rrr", error.message);
+        errorRender(error.message)
+    }
 }
 
+const errorRender = (errorMessage)=>{
+    const errorHTML = `<div class="alert alert-danger" role="alert">${errorMessage}</div>`;
+    newsBoard.innerHTML = errorHTML;
+}
 
 
 goBtn.addEventListener("click", (event)=>getNewsByInput(event));
@@ -207,3 +224,20 @@ const showSource = (source)=>{
 //     let response = await fetch(url,{headers:header})
 //     let data = await response.json()
 // }
+
+// 에러 핸들링
+// let weight = 45;
+// try{
+//     // 소스코드를 쓴다.
+//     // 이안에서 에러가 발생하면
+//     noona
+
+//     if(weight < 30){
+//         throw new Error("말랐다!")
+//     }
+// } catch(error) {
+//     // catch가 에러를 잡아준다.
+//     console.log("내가 잡은 에러는", error.message)
+// }
+// 에러가 발생하는 순간 try문은 끝난다. 바로 catch로 넘어간다!
+// 잡고싶은 에러가 있으면 try문 안에 쓰고 이것을 catch에서 잡는다.
