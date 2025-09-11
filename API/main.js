@@ -227,13 +227,13 @@ const paginationRender = ()=>{
     // </nav>
     let paginationHTML = ``
     if(page>1){
-        paginationHTML += `<li class="page-item" onclick="moveToPage(${page-1})"><a class="page-link" href="#"><<</a></li>`
+        paginationHTML += `<li class="page-item" onclick="moveToPage(${page-1})"><a class="page-link" href="#"><</a></li>`
     }
     for(let i=firstPage;i<=lastPage;i++){
         paginationHTML += `<li class="page-item ${i===page?"active":""}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`
     }
     if(page<totalPage){
-        paginationHTML += `<li class="page-item" onclick="moveToPage(${page+1})"><a class="page-link" href="#">>></a></li>`
+        paginationHTML += `<li class="page-item" onclick="moveToPage(${page+1})"><a class="page-link" href="#">></a></li>`
     }
     pagination.innerHTML = paginationHTML;
 }
