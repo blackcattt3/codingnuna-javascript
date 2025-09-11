@@ -12,7 +12,6 @@ const pageSize = 10;
 let page = 1
 const groupSize = 5;
 const totalPage = Math.ceil(totalResult / pageSize); // 1000/10 = 100
-
 const dummyNews = Array.from({ length: 73 }, (_, i) => `뉴스 ${i + 1}`);
 
 
@@ -47,16 +46,6 @@ const paginationRender = ()=>{
 const moveToPage = (clickPage)=>{
     page = clickPage;
     console.log(clickPage);
-
-    let pageGroup = Math.ceil(page/groupSize);
-    let lastPage = pageGroup * groupSize;
-    if(lastPage>totalPage){
-        lastPage = totalPage;
-    }
-    let firstPage = lastPage - (groupSize-1);
-    if(firstPage<1){
-        firstPage = 1;
-    }
     paginationRender();
 }
 
