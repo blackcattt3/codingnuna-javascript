@@ -66,7 +66,6 @@ input.addEventListener("keydown", (event) => {
     }
 });
 
-
 // searchIcon.addEventListener("click", renderToggle);
 hamburger.addEventListener("click", ()=>{
     menus.classList.toggle("active");
@@ -95,6 +94,7 @@ xBtn.addEventListener("click", ()=>{
 //     getLatestNews();
 // }))
 categoryBtn.forEach((category)=>category.addEventListener("click", (event)=>getNewsByCategory(event)));
+categoryBtn.forEach((category)=>category.addEventListener("click", ()=>{menus.classList.toggle("active")}));
 
 const getNewsByCategory = async(event)=>{
     // console.log(event.target.textContent)
@@ -145,7 +145,9 @@ const getLatestNews = async () =>{
 // }
 
 const render = ()=>{
+    
     const newsHTML = newsList.map((news)=>{
+
         const abstract = textAbstract(news.description, 200);
         const image = showImage (news.urlToImage);
         const source = showSource(news.source);
